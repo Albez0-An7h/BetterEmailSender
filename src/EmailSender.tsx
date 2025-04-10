@@ -1,4 +1,4 @@
-import { useState, useRef, FormEvent, ChangeEvent, useEffect } from 'react';
+import { useState, useRef, FormEvent, ChangeEvent} from 'react';
 import Papa from 'papaparse';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
