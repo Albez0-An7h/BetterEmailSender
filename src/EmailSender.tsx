@@ -289,9 +289,9 @@ const EmailSender = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-[#DCD7C9] min-h-screen">
-            <h1 className="text-3xl font-bold mb-8 text-[#2C3930] relative pb-3 inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-[#A27B5C] after:rounded tracking-wide">
-                <span className="bg-gradient-to-r from-[#2C3930] to-[#3F4F44] text-transparent bg-clip-text">Email Sender</span>
+        <div className="max-w-4xl mx-auto p-6 bg-[#0B192C] min-h-screen">
+            <h1 className="text-3xl font-bold mb-8 text-white relative pb-3 inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-[#FF6500] after:rounded tracking-wide">
+                <span className="bg-gradient-to-r from-white to-[#1E3E62] text-transparent bg-clip-text">Email Sender</span>
             </h1>
 
             {errorMessage && (
@@ -302,7 +302,7 @@ const EmailSender = () => {
 
             <form onSubmit={sendEmails} className="mb-8">
                 <div className="mb-4">
-                    <label htmlFor="name" className="block text-sm font-medium text-[#2C3930] mb-1">
+                    <label htmlFor="name" className="block text-sm font-medium text-white mb-1">
                         Your Name
                     </label>
                     <input
@@ -310,14 +310,14 @@ const EmailSender = () => {
                         id="name"
                         value={senderName}
                         onChange={handleNameChange}
-                        className="w-full px-3 py-2 border border-[#A27B5C] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3F4F44]"
+                        className="w-full px-3 py-2 border border-[#1E3E62] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FF6500]"
                         placeholder="Your Name"
                         required
                     />
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="email" className="block text-sm font-medium text-[#2C3930] mb-1">
+                    <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
                         Your Email Address
                     </label>
                     <input
@@ -325,14 +325,14 @@ const EmailSender = () => {
                         id="email"
                         value={senderEmail}
                         onChange={handleEmailChange}
-                        className="w-full px-3 py-2 border border-[#A27B5C] rounded-md focus:outline-none focus:ring-2 focus:ring-[#3F4F44]"
+                        className="w-full px-3 py-2 border border-[#1E3E62] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FF6500]"
                         placeholder="your@email.com"
                         required
                     />
                 </div>
 
                 <div className="mb-6">
-                    <label htmlFor="csvFile" className="block text-sm font-medium text-[#2C3930] mb-2">
+                    <label htmlFor="csvFile" className="block text-sm font-medium text-white mb-2">
                         Upload CSV File (with columns: companyName, ceoName, keywords, email)
                     </label>
                     <div className="flex flex-col sm:flex-row sm:items-center gap-3">
@@ -347,18 +347,18 @@ const EmailSender = () => {
                         <button
                             type="button"
                             onClick={triggerFileInput}
-                            className="px-4 py-2 rounded-md text-white bg-[#3F4F44] hover:bg-[#2C3930] transition-colors flex items-center justify-center"
+                            className="px-4 py-2 rounded-md text-white bg-[#1E3E62] hover:bg-[#0B192C] hover:shadow-[0_0_10px_#1E3E62] transition-all flex items-center justify-center border border-[#1E3E62]"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
                             </svg>
                             Choose CSV File
                         </button>
-                        <div className={`rounded-md px-3 py-2 overflow-hidden text-ellipsis ${selectedFileName ? 'bg-white border border-[#A27B5C] text-[#2C3930]' : 'bg-gray-100 text-gray-500'}`}>
+                        <div className={`rounded-md px-3 py-2 overflow-hidden text-ellipsis ${selectedFileName ? 'bg-white border border-[#1E3E62] text-[#000000]' : 'bg-gray-100 text-gray-500'}`}>
                             {selectedFileName || 'No file selected'}
                         </div>
                     </div>
-                    <p className="text-xs text-[#3F4F44] mt-2">
+                    <p className="text-xs text-gray-300 mt-2">
                         File must be a CSV with columns for company name, CEO name, keywords, and email
                     </p>
                 </div>
@@ -367,42 +367,42 @@ const EmailSender = () => {
                     type="submit"
                     disabled={isLoading}
                     className={`px-4 py-2 rounded-md text-white ${isLoading 
-                        ? 'bg-[#3F4F44] opacity-70 cursor-not-allowed' 
-                        : 'bg-[#A27B5C] hover:bg-[#2C3930]'}`}
+                        ? 'bg-[#1E3E62] opacity-70 cursor-not-allowed' 
+                        : 'bg-[#FF6500] hover:bg-[#FF6500]/80'}`}
                 >
                     {isLoading ? 'Sending Emails...' : 'Send Emails'}
                 </button>
             </form>
 
-            <div className="border border-[#A27B5C] rounded-md bg-white">
-                <h2 className="text-xl font-semibold p-4 border-b border-[#A27B5C] text-[#2C3930] bg-[#DCD7C9]">Email Status</h2>
+            <div className="border border-[#1E3E62] rounded-md bg-[#000000]">
+                <h2 className="text-xl font-semibold p-4 border-b border-[#1E3E62] text-white bg-[#0B192C]">Email Status</h2>
 
                 {emailStatuses.length > 0 ? (
-                    <div className="divide-y divide-[#A27B5C]">
+                    <div className="divide-y divide-[#1E3E62]">
                         {emailStatuses.map((status, index) => (
                             <div key={index} className="p-4 flex justify-between items-center">
                                 <div>
-                                    <p className="font-medium text-[#2C3930]">{status.companyName}</p>
-                                    <p className="text-sm text-[#3F4F44]">{status.email}</p>
+                                    <p className="font-medium text-white">{status.companyName}</p>
+                                    <p className="text-sm text-gray-300">{status.email}</p>
                                     {status.error && (
-                                        <p className="text-xs text-red-600 mt-1">{status.error}</p>
+                                        <p className="text-xs text-red-400 mt-1">{status.error}</p>
                                     )}
                                 </div>
                                 <div className="flex items-center gap-2">
                                     {status.status === 'pending' && (
-                                        <span className="bg-[#DCD7C9] text-[#2C3930] py-1 px-3 rounded-full text-sm border border-[#A27B5C]">
+                                        <span className="bg-[#0B192C] text-white py-1 px-3 rounded-full text-sm border border-[#1E3E62]">
                                             Pending
                                         </span>
                                     )}
                                     {status.status === 'sent' && (
                                         <>
-                                            <span className="bg-green-100 text-green-800 py-1 px-3 rounded-full text-sm">
+                                            <span className="bg-[#FF6500]/20 text-[#FF6500] py-1 px-3 rounded-full text-sm">
                                                 Sent
                                             </span>
                                             {status.content && (
                                                 <button 
                                                     onClick={() => viewEmailContent(status)}
-                                                    className="text-sm text-[#2C3930] underline"
+                                                    className="text-sm text-[#FF6500] underline"
                                                 >
                                                     View
                                                 </button>
@@ -419,21 +419,21 @@ const EmailSender = () => {
                         ))}
                     </div>
                 ) : (
-                    <p className="p-4 text-[#3F4F44]">No emails to display. Upload a CSV file to get started.</p>
+                    <p className="p-4 text-gray-300">No emails to display. Upload a CSV file to get started.</p>
                 )}
             </div>
 
             {/* Email content modal */}
             {selectedEmail && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-                    <div className="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-auto">
-                        <div className="p-4 border-b border-[#A27B5C] flex justify-between items-center">
-                            <h3 className="text-lg font-medium text-[#2C3930]">
+                <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50">
+                    <div className="bg-[#0B192C] rounded-lg max-w-2xl w-full max-h-[80vh] overflow-auto border border-[#1E3E62]">
+                        <div className="p-4 border-b border-[#1E3E62] flex justify-between items-center">
+                            <h3 className="text-lg font-medium text-white">
                                 Email to: {selectedEmail.companyName}
                             </h3>
                             <button 
                                 onClick={closeEmailContent}
-                                className="text-[#3F4F44] hover:text-[#2C3930]"
+                                className="text-gray-300 hover:text-white"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -441,11 +441,11 @@ const EmailSender = () => {
                             </button>
                         </div>
                         <div className="p-4 whitespace-pre-wrap">
-                            <div className="p-3 bg-[#DCD7C9] rounded mb-2 border border-[#A27B5C]">
-                                <p className="text-sm text-[#2C3930]"><strong>To:</strong> {selectedEmail.email}</p>
-                                <p className="text-sm text-[#2C3930]"><strong>From:</strong> {senderEmail}</p>
+                            <div className="p-3 bg-[#000000] rounded mb-2 border border-[#1E3E62]">
+                                <p className="text-sm text-white"><strong>To:</strong> {selectedEmail.email}</p>
+                                <p className="text-sm text-white"><strong>From:</strong> {senderEmail}</p>
                             </div>
-                            <div className="text-[#3F4F44]">{selectedEmail.content}</div>
+                            <div className="text-gray-300">{selectedEmail.content}</div>
                         </div>
                     </div>
                 </div>
