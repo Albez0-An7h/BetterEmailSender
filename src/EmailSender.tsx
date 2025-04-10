@@ -310,7 +310,7 @@ const EmailSender = () => {
                         id="name"
                         value={senderName}
                         onChange={handleNameChange}
-                        className="w-full px-3 py-2 border border-[#1E3E62] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FF6500]"
+                        className="w-full px-3 py-2 border border-[#1E3E62] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FF6500] bg-[#000000] text-white placeholder-gray-400"
                         placeholder="Your Name"
                         required
                     />
@@ -325,7 +325,7 @@ const EmailSender = () => {
                         id="email"
                         value={senderEmail}
                         onChange={handleEmailChange}
-                        className="w-full px-3 py-2 border border-[#1E3E62] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FF6500]"
+                        className="w-full px-3 py-2 border border-[#1E3E62] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FF6500] bg-[#000000] text-white placeholder-gray-400"
                         placeholder="your@email.com"
                         required
                     />
@@ -354,11 +354,11 @@ const EmailSender = () => {
                             </svg>
                             Choose CSV File
                         </button>
-                        <div className={`rounded-md px-3 py-2 overflow-hidden text-ellipsis ${selectedFileName ? 'bg-white border border-[#1E3E62] text-[#000000]' : 'bg-gray-100 text-gray-500'}`}>
+                        <div className={`rounded-md px-3 py-2 overflow-hidden text-ellipsis ${selectedFileName ? 'bg-[#000000] border border-[#1E3E62] text-white' : 'bg-[#000000] border border-[#1E3E62] text-gray-400'}`}>
                             {selectedFileName || 'No file selected'}
                         </div>
                     </div>
-                    <p className="text-xs text-gray-300 mt-2">
+                    <p className="text-xs text-[#FF6500]/80 mt-2">
                         File must be a CSV with columns for company name, CEO name, keywords, and email
                     </p>
                 </div>
