@@ -1,6 +1,7 @@
 import { useState, useRef, FormEvent, ChangeEvent } from 'react';
 import Papa from 'papaparse';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import Footer from './Footer';
 
 interface CompanyData {
     companyName: string;
@@ -450,6 +451,7 @@ const EmailSender = () => {
                     </div>
                 </div>
             )}
+                <Footer/>
         </div>
     );
 };
