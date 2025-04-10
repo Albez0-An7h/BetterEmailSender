@@ -1,53 +1,60 @@
-const nodemailer = require('nodemailer');
-
-// Configure email transporter
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASSWORD,
-    },
-  });
-};
+import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
-  // Only allow POST requests
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
-  }
+    try {
+        // Extract email data from request
+        const { to, subject, html, text } = req.body;
 
-  try {
-    const { to, toName, from, fromName, subject, content } = req.body;
+        if (!to || !subject || (!html && !text)) {
+            return res.status(400).json({ error: 'Missing required email fields' });
+        }
 
-    if (!to || !from || !content) {
-      return res.status(400).json({ message: 'Missing required email fields' });
+        // Configure email transport
+        const transporter = nodemailer.createTransport({
+            host: process.env.EMAIL_HOST,
+            port: process.env.EMAIL_PORT,
+            secure: process.env.EMAIL_SECURE === 'true', // true for 465, false for other ports
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
+
+        // Verify connection configuration
+        try {
+            await transporter.verify();
+        } catch (verifyError) {
+            console.error('Email configuration error:', verifyError);
+            return res.status(500).json({
+                error: 'Failed to connect to email service',
+                details: verifyError.message
+            });
+        }
+
+        // Send email with better error handling
+        try {
+            const info = await transporter.sendMail({
+                from: process.env.EMAIL_FROM,
+                to,
+                subject,
+                text: text || '',
+                html: html || '',
+            });
+
+            console.log('Email sent:', info.messageId);
+            return res.status(200).json({ success: true, messageId: info.messageId });
+        } catch (emailError) {
+            console.error('Email sending error:', emailError);
+            return res.status(500).json({
+                error: 'Failed to send email',
+                details: emailError.message
+            });
+        }
+    } catch (error) {
+        console.error('Unexpected error:', error);
+        return res.status(500).json({
+            error: 'Unexpected error occurred',
+            details: error.message
+        });
     }
-
-    const transporter = createTransporter();
-
-    // Send email
-    const mailOptions = {
-      from: `"${fromName}" <${from}>`,
-      to: `"${toName}" <${to}>`,
-      subject: subject,
-      html: content.replace(/\n/g, '<br>'), // Convert newlines to HTML line breaks
-    };
-
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent:', info.messageId);
-
-    res.status(200).json({ 
-      message: 'Email sent successfully', 
-      messageId: info.messageId 
-    });
-  } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({ 
-      message: 'Failed to send email', 
-      error: error.message 
-    });
-  }
 }
