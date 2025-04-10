@@ -1,4 +1,4 @@
-import { useState, useRef, FormEvent, ChangeEvent} from 'react';
+import { useState, useRef, FormEvent, ChangeEvent } from 'react';
 import Papa from 'papaparse';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
@@ -225,16 +225,20 @@ const EmailSender = () => {
                 });
 
                 if (!response.ok) {
-                    // Safely handle response that may not be JSON
+                    // Improved error handling from response
                     let errorMessage = 'Failed to send email';
+                    let errorDetails = '';
+                    
                     try {
                         const errorData = await response.json();
                         errorMessage = errorData.message || errorMessage;
+                        errorDetails = errorData.error || `HTTP error ${response.status}`;
+                        console.error('Server error details:', errorData);
                     } catch (jsonError) {
-                        // If JSON parsing fails, use status text or default message
-                        errorMessage = response.statusText || `HTTP error ${response.status}`;
+                        errorDetails = `HTTP error ${response.status}: ${response.statusText}`;
                     }
-                    throw new Error(errorMessage);
+                    
+                    throw new Error(`${errorMessage}: ${errorDetails}`);
                 }
                 
                 // Safely parse successful response
@@ -259,7 +263,7 @@ const EmailSender = () => {
                 );
             } catch (error) {
                 const errorMessage = error instanceof Error ? error.message : 'Failed to send email';
-                console.error(`Email sending failed for ${company.companyName}:`, errorMessage);
+                console.error(`Email sending failed for ${company.companyName}:`, error);
                 
                 setEmailStatuses(prev =>
                     prev.map((status, idx) =>
