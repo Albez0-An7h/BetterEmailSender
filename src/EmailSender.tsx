@@ -156,7 +156,7 @@ const EmailSender = () => {
             I am Akashat Singh from IITD, representing trabii, an event and weekend travel booking company.
             The email should be friendly, professional, and express interest in potential collaboration opportunities.
             Mention how our event planning and weekend travel booking services could benefit their company.
-            Keep it concise (3-4 paragraphs maximum) and make it feel personalized to the company.
+            Keep it concise (just one paragraph) and make it feel personalized to the company.
             `;
 
             const result = await model.generateContent(prompt);
